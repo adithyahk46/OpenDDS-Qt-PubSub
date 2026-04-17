@@ -10,6 +10,22 @@
 *.dll
 *.dylib
 
+
+.qtcreator/
+.vs/
+*.vcxproj*
+build/
+debug/
+release/
+*.vcxproj.filters
+*.vcxproj.user
+*vcxproj
+*.qtvscr
+*.pdb
+*.idb
+*.exp
+
+
 # Qt-es
 object_script.*.Release
 object_script.*.Debug

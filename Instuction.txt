@@ -1,0 +1,38 @@
+PATH's to set in env:
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\lib
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\ACE_wrappers\lib
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\bin
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\ACE_wrappers\bin
+
+Variables to set
+-----------------
+DDS_ROOT=C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0
+
+ACE_ROOT=C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\ACE_wrappers
+
+TAO_ROOT=C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\ACE_wrappers\TAO
+
+MPC_ROOT=C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\ACE_wrappers\MPC
+
+RAPIDJSON_ROOT=C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0\tools\rapidjson
+
+
+How to run a OpenDDS service; go to OpenDDS root dir 
+-----------------------------------
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0>setenv
+
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\INDIGIS_DEPS\OpenDDS-3.33.0>"%DDS_ROOT%\bin\DCPSInfoRepo.exe" -ORBEndpoint iiop://localhost:12345 -d domain_ids
+
+
+How to generate idl files;  the generate_idl.bat is configured to generate idl files
+-------------------------------------------------------------------------------------------
+usage:
+C:\Users\pnmt1054\Adithya_working_directory\QT_PROJECTS\OpenDDS\idl> generate_idl.bat "%DDS_ROOT% idlFile
+
+after generating idl file copy and past to both publisher and subscriber QT_PROJECTS
+
+
+How to run QT_PROJECTS
+--------------------------
+in qt projects -> run settings ->command line arguments past below
+-DCPSConfigFile dds_tcp_conf.ini
