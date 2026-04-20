@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QDebug>
+#include <QMetaObject>
 
 
 DDS::DomainId_t domain_id = 42;
@@ -21,14 +22,29 @@ MainWindow::MainWindow(QWidget *parent)
 
     std::string addr = ui->ip->text().trimmed().toStdString() + ":" + ui->portNumber->text().trimmed().toStdString();
 
-    if(!subscriber->initSubscriber(addr.c_str()
+    if(subscriber->initSubscriber(addr.c_str()
                                   ,type
                                   ,ui->domainId->text().toInt()
                                   ,ui->topicName->text().trimmed().toStdString().c_str() ))
     {
-            qDebug()<<"Error:: Failed to initialize subscriber";
-            // subscriber->cleanup();
+            // subscriber->cleanup(); 
+        qDebug()<<"Subscriber initialized successfully";
+        MessageReaderListener* listener = subscriber->getMessageReaderListener();
+        if (listener) {
+            listener->setMessageCallback([this](const Messager::Message& msg) {
+                const QString line = QString("Received: id=%1, content=%2, sender=%3")
+                                         .arg(msg.id)
+                                         .arg(msg.content.in())
+                                         .arg(msg.sender.in());
+                QMetaObject::invokeMethod(this, [this, line]() {
+                    ui->textMessages->append(line);
+                }, Qt::QueuedConnection);
+            });
+        }
+    } else {
+        qDebug()<<"Error:: Failed to initialize subscriber";
     }
+
     });
 
     this->adjustSize();

@@ -1,5 +1,6 @@
 #pragma once
 #include "idl/MessagerTypeSupportC.h"
+#include <functional>
 #include <dds/DCPS/LocalObject.h>
 #include <dds/DCPS/Marked_Default_Qos.h>
 
@@ -7,6 +8,10 @@ class MessageReaderListener
     : public virtual OpenDDS::DCPS::LocalObject<DDS::DataReaderListener>
 {
 public:
+    using MessageCallback = std::function<void(const Messager::Message&)>;
+
+    void setMessageCallback(const MessageCallback& callback) { messageCallback_ = callback; }
+
     void on_data_available(DDS::DataReader_ptr reader) override;
 
     void on_requested_deadline_missed(
@@ -32,4 +37,7 @@ public:
     void on_sample_lost(
         DDS::DataReader_ptr,
         const DDS::SampleLostStatus&) override {}
+
+private:
+    MessageCallback messageCallback_;
 };

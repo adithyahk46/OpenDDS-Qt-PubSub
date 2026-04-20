@@ -150,137 +150,7 @@ bool OpenDDSHelper::createPublisherAndDataWriter(const char* EXCHANGE_EVT_TOPIC_
 }
 
 bool OpenDDSHelper::initPubWithArgs(std::string config, int DOMAINE_ID, const char* EXCHANGE_EVT_TOPIC_NAME) {
-
-    //  try {
-
-    //     auto* registry = OpenDDS::DCPS::TransportRegistry::instance();
-    //     auto config = registry->create_config("config");
-
-    //     std::string addr = std::string("corbaloc::") + address + "/DCPSInfoRepo";
-    //     std::cout << addr<<std::endl;
-
-    //     if (type == CTYPE::TCP) {
-
-    //         // InfoRepo = "corbaloc::localhost:12345/DCPSInfoRepo"
-    //         TheServiceParticipant->set_repo_ior("corbaloc::0.0.0.0:5000/DCPSInfoRepo");
-
-    //         auto inst = registry->create_inst("tcp1", "tcp");
-    //         config->instances_.push_back(inst);
-    //     }
-    //     else if (type == CTYPE::UDP) {
-
-    //         // address = "0.0.0.0:5000"
-    //         TheServiceParticipant->set_repo_ior("corbaloc::0.0.0.0:5000/DCPSInfoRepo");
-
-    //         auto inst = registry->create_inst("udp1", "udp");
-
-    //         if (auto* udp = dynamic_cast<OpenDDS::DCPS::UdpInst*>(inst.in())) {
-    //             udp->local_address(address);
-    //         }
-
-    //         config->instances_.push_back(inst);
-    //     }
-    //     else if (type == CTYPE::RTPS_UDP) {
-
-    //         // address = "0.0.0.0:7400"
-    //         auto inst = registry->create_inst("rtps1", "rtps_udp");
-
-    //         if (auto* rtps = dynamic_cast<OpenDDS::DCPS::RtpsUdpInst*>(inst.in())) {
-    //             OpenDDS::DCPS::NetworkAddress addr(address);
-    //             rtps->local_address(addr);
-    //         }
-    //         config->instances_.push_back(inst);
-    //     }
-
-    //     // Apply config globally
-    //     registry->global_config(config);
-
-    //     // 3. Create DomainParticipant
-    //     dpf = TheParticipantFactory;
-
-    //     participant = dpf->create_participant(
-    //         domainId,
-    //         PARTICIPANT_QOS_DEFAULT,
-    //         DDS::DomainParticipantListener::_nil(),
-    //         OpenDDS::DCPS::DEFAULT_STATUS_MASK
-    //     );
-
-    //     if (CORBA::is_nil(participant.in())){
-    //         ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: DomainParticipant creation failed.\n")), 1);
-    //         return false;
-    //     }
-
-    //     // 4. Register Type
-    //     Messager::MessageTypeSupport_var mts =
-    //         new Messager::MessageTypeSupportImpl();
-
-    //     if (mts->register_type(participant.in(), "") != DDS::RETCODE_OK)
-    //     {
-    //         ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: Failed to register MessageTypeSupport_var.\n")), 1);
-    //         return false;
-    //     }
-
-    //     // 5. Topic
-    //     DDS::TopicQos topic_qos;
-    //     participant->get_default_topic_qos(topic_qos);
-
-    //     exchange_evt_topic =
-    //         participant->create_topic(
-    //             EXCHANGE_EVT_TOPIC_NAME,
-    //             mts->get_type_name(),
-    //             topic_qos,
-    //             DDS::TopicListener::_nil(),
-    //             OpenDDS::DCPS::DEFAULT_STATUS_MASK
-    //         );
-
-    //     if (CORBA::is_nil(exchange_evt_topic.in())){
-    //        ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: Exchange Event Topic creation failed.\n")), 1);
-    //         return false;
-    //     }
-
-    //     // 6. Publisher
-    //     publisher =
-    //         participant->create_publisher(
-    //             PUBLISHER_QOS_DEFAULT,
-    //             DDS::PublisherListener::_nil(),
-    //             OpenDDS::DCPS::DEFAULT_STATUS_MASK
-    //         );
-
-    //     if (CORBA::is_nil(publisher.in())){
-    //         ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: Publisher creation failed.\n")), 1);
-    //         return false;
-    //     }
-
-    //     // 7. DataWriter
-    //     DDS::DataWriterQos dw_qos;
-    //     publisher->get_default_datawriter_qos(dw_qos);
-
-    //     exchange_evt_data_writer =
-    //         publisher->create_datawriter(
-    //             exchange_evt_topic.in(),
-    //             dw_qos,
-    //             DDS::DataWriterListener::_nil(),
-    //             OpenDDS::DCPS::DEFAULT_STATUS_MASK
-    //         );
-
-    //     if (CORBA::is_nil(exchange_evt_data_writer.in())){
-    //       ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: DataWriter creation failed.\n")), 1);
-    //       return false;
-    //     }
-
-    //     writer = Messager::MessageDataWriter::_narrow(exchange_evt_data_writer.in());
-
-    //     if (CORBA::is_nil(writer.in())){
-    //         ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: Narrowing DataWriter failed.\n")), 1);
-    //         return false;
-    //     }
-
-    //     return true;
-    // }
-    // catch (const CORBA::Exception& ex) {
-    //     ex._tao_print_exception("CreatePublisher Exception:");
-        return false;
-    // }
+    return false;
 }
 
 bool OpenDDSHelper::initPublisher(const char* address, CTYPE TYPE, int DOMAINE_ID, const char* EXCHANGE_EVT_TOPIC_NAME) {
@@ -370,13 +240,13 @@ bool OpenDDSHelper::initSubscriber(const char* address, CTYPE TYPE, int DOMAINE_
           // Create DataReader with listener
           DDS::DataReaderQos dr_qos;
           subscriber->get_default_datareader_qos(dr_qos);
-          MessageReader = new MessageReaderListener;
-          DDS::DataReaderListener_var listener(MessageReader) ;
+          data_reader_listener = DDS::DataReaderListener_var(new MessageReaderListener());
+          MessageReader = dynamic_cast<MessageReaderListener*>(data_reader_listener.in());
 
           exchange_evt_data_reader =
               subscriber->create_datareader(exchange_evt_topic.in(),
                                             dr_qos,
-                                            listener.in(),
+                                            data_reader_listener.in(),
                                             ::OpenDDS::DCPS::DEFAULT_STATUS_MASK);
 
           if (CORBA::is_nil(exchange_evt_data_reader.in())) {

@@ -37,6 +37,10 @@ public:
     bool initSubWithArgs(std::string config, int DOMAINE_ID, const char* EXCHANGE_EVT_TOPIC_NAME);
     bool initSubscriber(const char* address, CTYPE TYPE, int DOMAINE_ID, const char* EXCHANGE_EVT_TOPIC_NAME);
 
+    MessageReaderListener* getMessageReaderListener() const {
+        return MessageReader;
+    }
+    
     bool dissConnect();
 
     bool cleanup();
@@ -69,7 +73,9 @@ private:
 
     DDS::Subscriber_var subscriber;
     DDS::DataReader_var exchange_evt_data_reader;
+    DDS::DataReaderListener_var data_reader_listener;
     MessageReaderListener* MessageReader = nullptr;
+
 
 
 
