@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 
-#include <OpenDDSSubscriber.h>
+#include <../OpenDDSHelper.h>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -18,13 +18,17 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_comboTransport_currentIndexChanged(int index);
+
+    void on_btnDisconnect_clicked();
+
 private:
 
 
 private:
     Ui::MainWindow *ui;
 
-    OpenDDSSubscriber* subscriber= nullptr;
+    OpenDDSHelper* subscriber= nullptr;
 
 };
 

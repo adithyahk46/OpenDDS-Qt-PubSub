@@ -6,12 +6,13 @@ CONFIG += c++17
 CONFIG += console
 CONFIG -= windows
 
-DESTDIR = $$PWD/bin
+DESTDIR = ../bin
 
 
 
 # OpenDDS configuration
-OPENDDS_ROOT = $$(DDS_ROOT)
+OPENDDS_ROOT = C:/Users/pnmt1054/Adithya_working_directory/QT_PROJECTS/INDIGIS_DEPS/OpenDDS-3.33.0
+
 ACE_ROOT = $$OPENDDS_ROOT/ACE_wrappers
 TAO_ROOT = $$ACE_ROOT/TAO
 MPC_ROOT = $$ACE_ROOT/MPC
@@ -79,18 +80,16 @@ HEADERS += \
     $$IDLFILESOURCE/$${IDLNAME}TypeSupportImpl.h \
     $$IDLFILESOURCE/$${IDLNAME}TypeSupportC.h \
     $$IDLFILESOURCE/$${IDLNAME}TypeSupportS.h \
-    MessageReaderListener.h \
-    OpenDDSSubscriber.h
-
+    ../OpenDDSHelper.h \
+    ../MessageReaderListener.h
 SOURCES += \
     $$IDLFILESOURCE/$${IDLNAME}C.cpp \
     $$IDLFILESOURCE/$${IDLNAME}S.cpp \
     $$IDLFILESOURCE/$${IDLNAME}TypeSupportImpl.cpp \
     $$IDLFILESOURCE/$${IDLNAME}TypeSupportC.cpp \
     $$IDLFILESOURCE/$${IDLNAME}TypeSupportS.cpp \
-    MessageReaderListener.cpp \
-    OpenDDSSubscriber.cpp
-
+    ../OpenDDSHelper.cpp \
+    ../MessageReaderListener.cpp
 
 SOURCES += \
     main.cpp \

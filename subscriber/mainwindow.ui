@@ -92,14 +92,14 @@
        <item row="1" column="2">
         <widget class="QLineEdit" name="ip">
          <property name="text">
-          <string>127.0.0.1</string>
+          <string>localhost</string>
          </property>
         </widget>
        </item>
        <item row="2" column="2">
         <widget class="QLineEdit" name="portNumber">
          <property name="text">
-          <string>6000</string>
+          <string>12345</string>
          </property>
         </widget>
        </item>

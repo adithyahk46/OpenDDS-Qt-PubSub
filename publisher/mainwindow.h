@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include "../idl/MessagerTypeSupportImpl.h"
 
-#include <OpenDDSPublisher.h>
+#include "../OpenDDSHelper.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,16 +17,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-
 private slots:
-    bool InitializePublisher();
+
+    void on_comboTransport_currentIndexChanged(int index);
+
+    void on_btnDisconnect_clicked();
 
     void on_sendMessage_clicked();
 
-    void on_pushButton_clicked();
-
 private:
     Ui::MainWindow *ui;
-    OpenDDSPublisher* publisher = nullptr;
+    OpenDDSHelper* publisher = nullptr;
 };
 #endif // MAINWINDOW_H
