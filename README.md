@@ -55,7 +55,8 @@ main.cpp → MainWindow (Qt GUI) → OpenDDSHelper (DDS management) → DataWrit
 Subscriber Application:
 main.cpp → MainWindow (Qt GUI) → OpenDDSHelper (DDS management) → DataReader (receiving messages) → MessageReaderListener (callback for new messages)
 
-### How To Build this project
+## How To Build this project
+------------------------------
 
 ### Core Dependencies
 - **OpenDDS 3.33.0**: Open-source DDS( [Link to OpenDDS](https://github.com/OpenDDS/OpenDDS))
@@ -63,7 +64,7 @@ main.cpp → MainWindow (Qt GUI) → OpenDDSHelper (DDS management) → DataRead
 - **Windows Visual Studio**: MSVC compiler (tested on vs2022 Windows)
 - **CMake 3.16 or later**: Build system
 
-## hOW TO BUILD OpenDDS from source
+### How to build OpenDDS from source
 1. **Clone OpenDDS Repository**
    ```bash
    git clone https://github.com/OpenDDS/OpenDDS.git
