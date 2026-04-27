@@ -43,8 +43,8 @@ MainWindow::MainWindow(QWidget *parent)
         }
     } else {
         qDebug()<<"Error:: Failed to initialize subscriber";
+        subscriber->dissConnect();
     }
-
     });
 
     this->adjustSize();
@@ -63,15 +63,21 @@ void MainWindow::on_comboTransport_currentIndexChanged(int index)
         ui->ip->setText("localhost");
         ui->portNumber->setText("12345");
         type = OpenDDSHelper::CTYPE::TCP;
+        ui->ip->show();
+        ui->portNumber->show();
         break;
     case 1:
         ui->ip->setText("127.0.0.1");
         ui->portNumber->setText("5000");
         type = OpenDDSHelper::CTYPE::UDP;
+        ui->ip->show();
+        ui->portNumber->show();
         break;
     case 2:
-        ui->ip->setText("0.0.0.0");
-        ui->portNumber->setText("5000");
+        ui->ip->setText("");
+        ui->portNumber->setText("");
+        ui->ip->hide();
+        ui->portNumber->hide();
         type = OpenDDSHelper::CTYPE::RTPS_UDP;
         break;
 
@@ -82,5 +88,5 @@ void MainWindow::on_comboTransport_currentIndexChanged(int index)
 
 void MainWindow::on_btnDisconnect_clicked()
 {
-
+    if(subscriber) subscriber->dissConnect();
 }

@@ -6,24 +6,33 @@ CONFIG += c++17
 CONFIG += console
 CONFIG -= windows
 
-DESTDIR = ../bin
+DESTDIR = $$PWD/../bin
 
 
 
 # OpenDDS configuration
 OPENDDS_ROOT = C:/Users/pnmt1054/Adithya_working_directory/QT_PROJECTS/INDIGIS_DEPS/OpenDDS-3.33.0
+IDLNAME = Messager
+IDLFILESOURCE = ../idl
 
-ACE_ROOT = $$OPENDDS_ROOT/ACE_wrappers
-TAO_ROOT = $$ACE_ROOT/TAO
-MPC_ROOT = $$ACE_ROOT/MPC
-RAPIDJSON_ROOT = $$OPENDDS_ROOT/tools/rapidjson
 
+exists(OPENDDS_ROOT) {
+    message("Using OpenDDS from: $$OPENDDS_ROOT")
+} else {
+    error("OPENDDS_ROOT directory does not exist: $$OPENDDS_ROOT")
+}
 isEmpty(OPENDDS_ROOT) {
     error("DDS_ROOT environment variable is not set")
 }
 exists(OPENDDS_ROOT){
   error("DDS_ROOT Directory is not exits")
 }
+ACE_ROOT = $$OPENDDS_ROOT/ACE_wrappers
+TAO_ROOT = $$ACE_ROOT/TAO
+MPC_ROOT = $$ACE_ROOT/MPC
+RAPIDJSON_ROOT = $$OPENDDS_ROOT/tools/rapidjson
+
+
 
 INCLUDEPATH += \
     $$OPENDDS_ROOT \
@@ -70,9 +79,6 @@ CONFIG(debug, debug|release) {
         -lACE
 }
 
-
-IDLNAME = Messager
-IDLFILESOURCE = ../idl
 
 HEADERS += \
     $$IDLFILESOURCE/$${IDLNAME}C.h \

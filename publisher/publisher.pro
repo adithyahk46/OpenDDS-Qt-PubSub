@@ -8,7 +8,7 @@ CONFIG -= windows
 # CONFIG += App
 
 # Project configuration
-DESTDIR = ../bin
+DESTDIR = $$PWD/../bin
 
 
 # OpenDDS configuration
